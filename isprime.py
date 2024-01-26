@@ -3,13 +3,14 @@ import sys
 
 
 def primef(n):
-    """_summary_
-
+    """takes an integer as a command-line argument
+    and checks if it is a prime number
+    
     Args:
-        n (_type_): _description_
+        n (int):  input
 
     Returns:
-        int n: _description_
+        int n: a prime number after checking
     """
     if n <= 3:
         return int(n)
