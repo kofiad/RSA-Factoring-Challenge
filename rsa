@@ -1,41 +1,32 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
+"""
+Factorize numbers in a file into a product of two prime numbers
+"""
 import sys
 
-def is_prime(n):
-    """Check if a number is prime."""
-    if n < 2:
-        return False
-    for i in range(2, int(n ** 0.5) + 1):
-        if n % i == 0:
-            return False
-    return True
 
-def pollards_rho(n):
-    """Factorize a number using Pollard's rho algorithm."""
-    from math import gcd
-    x, y, d = 2, 2, 1
-    f = lambda x: (x**2 + 1) % n
-    while d == 1:
-        x = f(x)
-        y = f(f(y))
-        d = gcd(abs(x - y), n)
-    return d, n // d
+def factorize():
+    """
+    A function to search file and factorize the given set of numbers into two prime numbers (format n = p*q)
+    """
+    try:
+        file = sys.argv[1]
+        with open(file) as f:
+            for line_number in f:
+                line_number = int(line_number)
+                if line_number % 2 == 0:
+                        print("{}={}*{}".format(line_number, line_number // 2, 2))
+                        continue
+                i = 3
+                while i < line_number // 2:
+                    if line_number % i == 0:
+                        print("{}={}*{}".format(line_number, line_number // i, i))
+                        break
+                    i = i + 2
+                if i == (line_number // 2) + 1:
+                    print("{}={}*{}".format(line_number, line_number, 1))
+    except (IndexError):
+        pass
 
-def main():
-    """Read numbers from a file and print their factorizations."""
-    if len(sys.argv) != 2:
-        print(f"Usage: {sys.argv[0]} <file>")
-        sys.exit(1)
 
-    filename = sys.argv[1]
-    with open(filename, 'r') as f:
-        for line in f:
-            n = int(line.strip())
-            p, q = pollards_rho(n)
-            if is_prime(p) and is_prime(q):
-                print(f"{n}={p}*{q}")
-            else:
-                print(f"{n} cannot be factorized into two prime numbers.")
-
-if __name__ == "__main__":
-    main()
+factorize()
