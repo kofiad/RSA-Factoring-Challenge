@@ -3,6 +3,14 @@ import sys
 
 
 def primef(n):
+    """checks if a number is a prime factor
+
+    Args:
+        n (int): number to be checked
+
+    Returns:
+        int : prime factors of a number
+    """
     if n <= 3:
         return int(n)
     if n % 2 == 0:
